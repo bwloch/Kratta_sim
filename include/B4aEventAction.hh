@@ -1,0 +1,301 @@
+#ifndef B4aEventAction_h
+#define B4aEventAction_h 1
+
+
+#include "B4aPrimaryGeneratorAction.hh"
+#include "B4aHistoManager.hh"
+#include "G4UserEventAction.hh"
+#include "globals.hh"
+
+
+
+/// Event action class
+///
+/// It defines data members to hold the energy deposit and track lengths
+/// of charged particles in Absober and Gap layers:
+/// - fEnergyAbs, fEnergyGap, fTrackLAbs, fTrackLGap
+/// which are collected step by step via the functions
+/// - AddAbs(), AddGap()
+class B4aPrimaryGenaratorAction;
+class B4aSteppingAction;
+
+class HistoManager;
+
+
+class B4aEventAction : public G4UserEventAction
+{
+  public:
+  B4aEventAction(HistoManager*);//, B4aPrimaryGeneratorAction*);
+    virtual ~B4aEventAction();
+
+  //B4aPrimaryGeneratorAction *myPrimaryGA;
+    //B4aSteppingAction *mySTA;
+
+    virtual void  BeginOfEventAction(const G4Event* event);//, B4aPrimaryGeneratorAction *);
+    virtual void    EndOfEventAction(const G4Event* event);
+    
+    void AddHe3(G4double de, G4double dl);
+    void AddTg2(G4double de, G4double dl);
+    void AddPyrex(G4double de, G4double dl);
+    void AddAir(G4double de, G4double dl);
+    
+    void AddSwin1(G4double de, G4double dl);
+    void AddSwin2(G4double de, G4double dl);
+    void AddFwin1(G4double de, G4double dl);
+    void AddFwin2(G4double de, G4double dl);
+  
+  void AddKrHous(G4double de, G4double dl, G4int kr);
+  void AddKrCuwin(G4double de, G4double dl, G4int kr);
+  void AddKrAir1(G4double de, G4double dl, G4int kr);
+  void AddPlastic(G4double de, G4double dl, G4int kr);
+    
+  void AddKrPddf(G4double de, G4double dl, G4int kr, G4int pd);
+  void AddKrPd(G4double de, G4double dl, G4int k, G4int pd);
+  void AddKrPddr(G4double de, G4double dl, G4int kr, G4int pd);
+  void AddKrPdAc(G4double de, G4double dl, G4int kr, G4int pd);
+  
+  void AddKrAir2(G4double de, G4double dl, G4int kr);
+  void AddKrAir3(G4double de, G4double dl, G4int kr);
+    
+  void AddKrCsIs(G4double de, G4double dl, G4int kr);
+  void AddKrCsIl(G4double de, G4double dl, G4int kr);
+  
+  void AddKrCsIswr(G4double de, G4double dl, G4int kr);
+  void AddKrCsIlwr(G4double de, G4double dl, G4int kr);
+    
+        
+  G4double Vx, Vy, Vz;
+
+  G4int maxDet;
+    
+    
+  
+  //G4double  fEnergyAbs;
+  //G4double  fEnergyGap;
+  //G4double  fTrackLAbs; 
+  //G4double  fTrackLGap;
+  
+  HistoManager *fHistoManager;
+  B4aSteppingAction *fSteppingAction; 
+  
+
+
+
+  G4double fpartID;
+  
+  G4double  fEnergyHe3;
+  G4double  fEnergyTg2;
+  
+  G4double  fEnergyPyrex;
+  G4double  fEnergyAir;
+
+  G4double  fEnergySwin1;
+  G4double  fEnergySwin2;
+  G4double  fEnergyFwin1;
+  G4double  fEnergyFwin2;
+
+  G4double  fEventWeight;
+
+  G4double  fEnergyPlastic[50];
+  G4double  fEnergyKrHouse[50];
+  G4double  fEnergyCuwin[50];
+  G4double  fEnergyAir1[50];
+  G4double  fEnergyAir2[50];
+  G4double  fEnergyAir3[50];
+  G4double  fEnergyPd[50][4];
+  G4double  fEnergyPddf[50][4];
+  G4double  fEnergyPddr[50][4];
+  G4double  fEnergyPdac[50][4];
+  G4double  fKrNb[50];
+  G4double  fPdNb[50][4];
+
+  G4double  fEnergyCsIl[50];
+  G4double  fEnergyCsIlwr[50];
+  G4double  fEnergyCsIs[50];
+  G4double  fEnergyCsIswr[50];
+
+  G4double  fTrackLHe3;
+  G4double  fTrackLTg2;
+  
+  G4double  fTrackLPyrex;
+  G4double  fTrackLAir;
+
+  G4double  fTrackLSwin1;
+  G4double  fTrackLSwin2;
+  G4double  fTrackLFwin1;
+  G4double  fTrackLFwin2;
+  
+  G4double  fTrackLPlastic[50];
+  G4double  fTrackLKrHouse[50];
+  G4double  fTrackLCuwin[50];
+  G4double  fTrackLAir1[50];
+  G4double  fTrackLAir2[50];
+  G4double  fTrackLAir3[50];
+  
+  G4double  fTrackLPd[50][4];
+  G4double  fTrackLPddf[50][4];
+  G4double  fTrackLPddr[50][4];
+  G4double  fTrackLPdac[50][4];
+  
+  G4double  fTrackLCsIl[50];
+  G4double  fTrackLCsIlwr[50];
+  G4double  fTrackLCsIs[50];
+  G4double  fTrackLCsIswr[50];
+
+
+};
+// inline functions
+/*
+inline void B4aEventAction::AddAbs(G4double de, G4double dl) {
+  fEnergyAbs += de; 
+  fTrackLAbs += dl;
+}
+
+inline void B4aEventAction::AddGap(G4double de, G4double dl) {
+  fEnergyGap += de; 
+  fTrackLGap += dl;
+}
+*/  
+
+inline void B4aEventAction::AddHe3(G4double de, G4double dl)
+{
+  fEnergyHe3 += de; 
+  fTrackLHe3 += dl;
+  //std::cout<<"--------"<<de<<" "<<fEnergyHe3<<std::endl;
+}
+inline void B4aEventAction::AddTg2(G4double de, G4double dl)
+{
+  fEnergyTg2 += de; 
+  fTrackLTg2 += dl;
+  //std::cout<<"--------"<<de<<" "<<fEnergyHe3<<std::endl;
+}
+
+
+inline void B4aEventAction::AddPyrex(G4double de, G4double dl)
+{
+  fEnergyPyrex += de; 
+  fTrackLPyrex += dl;
+  //std::cout<<"--------"<<fEnergyPyrex<<" "<<de<<std::endl;
+}
+
+inline void B4aEventAction::AddAir(G4double de, G4double dl)
+{
+  fEnergyAir += de; 
+  fTrackLAir += dl;
+}
+
+    
+inline void B4aEventAction::AddSwin1(G4double de, G4double dl)
+{
+  fEnergySwin1 += de; 
+  fTrackLSwin1 += dl;
+}
+
+inline void B4aEventAction::AddSwin2(G4double de, G4double dl){
+  fEnergySwin2 += de; 
+  fTrackLSwin2 += dl;
+}
+
+inline void B4aEventAction::AddFwin1(G4double de, G4double dl)
+{
+  fEnergyFwin1 += de; 
+  fTrackLFwin1 += dl;
+}
+
+inline void B4aEventAction::AddFwin2(G4double de, G4double dl)
+{
+  fEnergyFwin2 += de; 
+  fTrackLFwin2 += dl;
+}
+
+    
+inline void B4aEventAction::AddPlastic(G4double de, G4double dl, G4int i)
+{
+  fEnergyPlastic[i] += de; 
+  fTrackLPlastic[i] += dl;
+}
+
+inline void B4aEventAction::AddKrHous(G4double de, G4double dl, G4int i)
+{
+  fEnergyKrHouse[i] += de; 
+  fTrackLKrHouse[i] += dl;
+}
+
+inline void B4aEventAction::AddKrCuwin(G4double de, G4double dl, G4int i)
+{
+  fEnergyCuwin[i] += de; 
+  fTrackLCuwin[i] += dl;
+}
+
+inline void B4aEventAction::AddKrAir1(G4double de, G4double dl, G4int i)
+{
+  fEnergyAir1[i] += de; 
+  fTrackLAir1[i] += dl;
+}
+
+inline void B4aEventAction::AddKrPddf(G4double de, G4double dl, G4int kr, G4int pd)
+{
+  fEnergyPddf[kr][pd] += de; 
+  fTrackLPddf[kr][pd] += dl;
+}
+
+
+inline void B4aEventAction::AddKrPd(G4double de, G4double dl, G4int kr, G4int pd)
+{
+  fEnergyPd[kr][pd] += de; 
+  fTrackLPd[kr][pd] += dl;
+}
+
+inline void B4aEventAction::AddKrPddr(G4double de, G4double dl, G4int kr, G4int pd)
+{
+  fEnergyPddr[kr][pd] += de; 
+  fTrackLPddr[kr][pd] += dl;
+}
+
+inline void B4aEventAction::AddKrPdAc(G4double de, G4double dl, G4int kr, G4int pd)
+{
+  fEnergyPdac[kr][pd] += de; 
+  fTrackLPdac[kr][pd] += dl;
+}
+
+
+inline void B4aEventAction::AddKrAir2(G4double de, G4double dl, G4int i)
+{
+  fEnergyAir2[i] += de; 
+  fTrackLAir2[i] += dl;
+}
+
+inline void B4aEventAction::AddKrAir3(G4double de, G4double dl, G4int i)
+{
+  fEnergyAir3[i] += de; 
+  fTrackLAir3[i] += dl;
+}
+
+inline void B4aEventAction::AddKrCsIs(G4double de, G4double dl, G4int i)
+{
+  fEnergyCsIs[i] += de; 
+  fTrackLCsIs[i] += dl;
+}
+
+inline void B4aEventAction::AddKrCsIl(G4double de, G4double dl, G4int i)
+{
+  fEnergyCsIl[i] += de; 
+  fTrackLCsIl[i] += dl;
+}
+
+inline void B4aEventAction::AddKrCsIswr(G4double de, G4double dl, G4int i)
+{
+  fEnergyCsIswr[i] += de; 
+  fTrackLCsIswr[i] += dl;
+}
+
+inline void B4aEventAction::AddKrCsIlwr(G4double de, G4double dl, G4int i)
+{
+  fEnergyCsIlwr[i] += de; 
+  fTrackLCsIlwr[i] += dl;
+}
+
+
+#endif
+
+    

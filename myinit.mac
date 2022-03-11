@@ -1,0 +1,36 @@
+#modified by Iza C. 2015
+
+
+#/param/npd_choice      1
+/param/neumann 1
+/param/bfwhmx          3.        	# in mm!
+/param/bfwhmy          3.		# in mm!
+/param/bt              90. MeV      #tylko MeV !!
+/param/pz              0.
+/param/pzz             0.
+/param/themin          80  
+/param/themax          90 
+/param/the2min         88. deg
+/param/the2max         92 deg
+/param/phimin          180 deg
+/param/phimax          181 deg
+#phimax=180. deg dla breakupu
+#phimax=360. deg dla elastycznego
+#the2max=180.deg  dla elastycznego
+#/param/update
+#tarcza
+#/geom/target/is        1
+/param/target/radius    25 mm
+/param/target/high      50 mm
+/param/target/place_x   0. mm
+/param/target/place_y   0. mm
+/param/target/place_z   0. mm
+
+#/geom/update
+#/physics/neutrons/model 0
+#/physics/neutrons/type 0
+#/physics/broadening 0
+/generator/min 40
+/generator/max 240
+#/fileOut/files 7
+

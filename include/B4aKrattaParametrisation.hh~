@@ -1,0 +1,35 @@
+#ifndef B4aKrattaParameterisation_H
+#define B4aKrattaParameterisation_H 1
+
+#include "globals.hh"
+#include "G4VPVParameterisation.hh"
+class G4VPhysicalVolume;
+
+
+
+class B4aKrattaParameterisation : public G4VPVParameterisation
+{
+public:
+    B4aKrattaParameterisation(G4int, G4double,
+	G4double,
+	G4double,
+	G4double,
+	G4double, 
+        G4double);
+    virtual ~B4aKrattaParameterisation();
+    
+    virtual void ComputeTransformation(
+                   const G4int copyNo,G4VPhysicalVolume *physVol) const;
+  //G4int  copyNo=10;
+private:
+  //G4double fXCell[80];
+  // G4double fYCell[80];
+  G4double fPhi[10];
+  G4double fTheta[10];
+  G4double fPsi[10];
+
+};
+
+
+
+#endif
