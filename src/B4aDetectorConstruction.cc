@@ -105,6 +105,9 @@ G4Material* vaccum = man->FindOrBuildMaterial("G4_Galactic");
   //Ti
   man->FindOrBuildMaterial("G4_Ti");
 
+  man->FindOrBuildMaterial("G4_STAINLESS-STEEL");
+  man->FindOrBuildMaterial("G4_Al");
+
 
   //CsI
   G4Material *CsI = man->FindOrBuildMaterial("G4_CESIUM_IODIDE");
@@ -201,8 +204,8 @@ G4VPhysicalVolume* B4aDetectorConstruction::DefineVolumes()
   G4double ftar_detTi = 600.*mm;
 
   //Half Sizes
-   G4double fworldSizeXY = 800*mm;
-   G4double fworldSizeZ  = 800*mm;
+   G4double fworldSizeXY = 3000*mm;
+   G4double fworldSizeZ  = 3000*mm;
 
   //CsI - short
   G4double fCsiShort_xy1 =  14.*aa*mm;
@@ -295,6 +298,7 @@ G4VPhysicalVolume* B4aDetectorConstruction::DefineVolumes()
   G4Material* vaccum = G4Material::GetMaterial("G4_Galactic");
   G4Material* CD2 = G4Material::GetMaterial("CD2");
   G4Material* CTarget = G4Material::GetMaterial("CTarget");
+  G4Material* steel = G4Material::GetMaterial("G4_STAINLESS-STEEL");
   G4Material* CGr = G4Material::GetMaterial("CGr");
 
 
@@ -337,6 +341,248 @@ G4VPhysicalVolume* B4aDetectorConstruction::DefineVolumes()
                  0,                // copy number
                  fCheckOverlaps);  // checking overlaps
 
+
+                 //******************************************
+                 //
+                 // Chamber
+                 //
+                 G4double d1=8.*mm;
+                 G4double chR=1700*mm;
+                 G4double chR1=0.5*(chR-d1);
+                 G4double chR2=0.5*chR;
+                 G4double chh=0.5*800*mm;
+
+                 G4RotationMatrix *rm03 = new G4RotationMatrix();
+                 rm03->rotateX(90*deg);
+                 rm03->rotateY(0.*deg);
+                 rm03->rotateZ(0);
+
+                   G4VSolid * chtube = new G4Tubs("chtube", chR1, chR2, chh, 0.,  360.*deg);
+                   G4LogicalVolume* tube_log =new G4LogicalVolume(chtube,steel, "chtubeL");
+                   G4PVPlacement* tube_phys = new G4PVPlacement(rm03, G4ThreeVector(0., 0., 0.),tube_log,"chtubeP", worldLV, false, 0,fCheckOverlaps);
+
+                 //******************************************
+                 // Chamber with vaccum inside
+
+                   G4RotationMatrix *rm03a = new G4RotationMatrix();
+                   rm03a->rotateX(90*deg);
+                   rm03a->rotateY(0.*deg);
+                   rm03a->rotateZ(0);
+
+                   G4VSolid * chtube1 = new G4Tubs("chtube1", 0.,chR1, chh, 0.,  360.*deg);
+                   G4LogicalVolume* tube_log1 =new G4LogicalVolume(chtube1,vaccum, "chtube1L");
+                   G4PVPlacement* tube_phys1 = new G4PVPlacement(rm03a,G4ThreeVector(0., 0., 0.),tube_log1,"chtube1P", worldLV, false, 0,fCheckOverlaps);
+
+
+               //**********************************************
+               // Chamber FLin, FLout
+
+                   G4double chR1in=0.*mm;
+                   G4double chR2in=0.5*63*mm;
+                   G4double chhin=0.5*4.*mm;
+
+                   G4RotationMatrix *rm03b = new G4RotationMatrix();
+                   rm03b->rotateX(-90*deg);
+                   rm03b->rotateY(0.*deg);
+                   rm03b->rotateZ(0);
+
+                G4double zchin=(chR2-0.5*d1);
+                //cout<<zchin<<endl;
+
+                G4VSolid * chtubeflin = new G4Tubs("chtubein", 0, chR2in, chhin, 0.,  twopi);
+                G4LogicalVolume* tube_logflin =new G4LogicalVolume(chtubeflin,vaccum, "chtubeLflin");
+                G4PVPlacement* tube_physflin = new G4PVPlacement(rm03b,G4ThreeVector(0., zchin,0.), tube_logflin,"chtubePflin",tube_log, false, 0,fCheckOverlaps);
+
+
+                G4RotationMatrix *rm03c = new G4RotationMatrix();
+                rm03c->rotateX(90*deg);
+                rm03c->rotateY(0.*deg);
+                rm03c->rotateZ(0);
+
+                G4VSolid * chtubeflout = new G4Tubs("chtubeout", 0, chR2in, chhin, 0.,  twopi);
+                G4LogicalVolume* tube_logflout =new G4LogicalVolume(chtubeflout,vaccum, "chtubeLflout");
+                G4PVPlacement* tube_physflout = new G4PVPlacement(rm03c,G4ThreeVector(0., (-1.)*zchin,0.), tube_logflout,"chtubePflout",tube_log, false, 0,fCheckOverlaps);
+
+                //*********************************
+                // BEAMLINE - short
+                //sbl-short beam line
+
+                G4double dbl=3.*mm;
+
+                G4double sblR=63.*mm;
+                G4double sblR1=0.5*(sblR-dbl);
+                G4double sblR2=0.5*sblR;
+                G4double sblh=0.5*107.5*mm;
+
+                   G4RotationMatrix *rm03d = new G4RotationMatrix();
+                   rm03d->rotateX(180*deg);
+                   rm03d->rotateY(0.*deg);
+                   rm03d->rotateZ(0);
+
+
+
+                   //G4double zsbl=0.5*chR+sblh;
+                   G4double zsbl=(-1.)*(0.5*chR+sblh);
+                   //cout<<zchin<<endl;
+
+                G4VSolid * tubeSbl = new G4Tubs("tube_sbl", sblR1, sblR2, sblh, 0.,  twopi);
+                G4LogicalVolume* tubeSbl_log =new G4LogicalVolume(tubeSbl, steel, "tubeSbl_log");
+                G4PVPlacement* tubeSbl_phys = new G4PVPlacement(0,G4ThreeVector(0., 0.,zsbl), tubeSbl_log,"tubeSbl_phys",worldLV, false, 0,fCheckOverlaps);
+
+                //vaccum inside
+                G4VSolid * tubeSbl1 = new G4Tubs("tube_sblvacc", 0, sblR1, sblh, 0.,  twopi);
+                G4LogicalVolume* tubeSbl1_log =new G4LogicalVolume(tubeSbl1, vaccum, "tubeSblvacc_log");
+                G4PVPlacement* tubeSbl1_phys = new G4PVPlacement(0,G4ThreeVector(0., 0.,zsbl), tubeSbl1_log,"tubeSbl1_phys",worldLV, false, 0,fCheckOverlaps);
+
+
+
+                //*********************************
+                // BPM - ring1
+
+                G4double bpmh_ring=25*mm;
+                G4double bpmR1_ring=0.5*63*mm;
+                G4double bpmR2_ring=0.5*78*mm;
+
+
+                G4double bpm_z1=zsbl-(0.5*sblh+0.5*bpmh_ring);
+
+                G4VSolid * bpm1 = new G4Tubs("bpm1", bpmR1_ring, bpmR2_ring, 0.5*bpmh_ring, 0.,  360.*deg);
+                G4LogicalVolume* bpm1_log =new G4LogicalVolume(bpm1,steel, "bpm1LV");
+                G4PVPlacement* bpm1_phys = new G4PVPlacement(0,G4ThreeVector(0., 0., bpm_z1),bpm1_log,"bpm1PV", worldLV, false, 0,fCheckOverlaps);
+
+               //*********************************
+                // BPM
+
+                G4double bpm_x=0.5*250*mm;
+                G4double bpm_y=0.5*400*mm;
+                G4double bpm_z=0.5*85*mm;
+
+                 G4VSolid* bpm = new G4Box("bpm",bpm_x,bpm_y,bpm_z);
+
+                 G4LogicalVolume* bpmLV= new G4LogicalVolume(bpm,steel,"bpmLV");
+
+
+                 G4double bpm_z0=zsbl-(0.5*sblh+bpmh_ring+bpm_z);
+
+                 G4PVPlacement *bpmPV = new G4PVPlacement(0,
+               					   G4ThreeVector(0., 0., bpm_z0),
+               					   bpmLV,
+               					   "bpmPV",
+               					   worldLV,
+               					   false,
+               					   0,
+               					   fCheckOverlaps);
+
+
+
+                // BPM - inside air
+                 G4double dbpmIn=10.*mm; //thickenss of BPM steel walls
+
+                 G4double bpmIn_x=0.5*250*mm-dbpmIn;
+                 G4double bpmIn_y=0.5*400*mm-dbpmIn;
+                 G4double bpmIn_z=0.5*85*mm-dbpmIn;
+
+                G4VSolid* bpmIn = new G4Box("bpmIn",bpmIn_x,bpmIn_y,bpmIn_z);
+                G4LogicalVolume* bpmInLV= new G4LogicalVolume(bpmIn,defaultMaterial,"bpmInLV");
+
+                 G4PVPlacement *bpmInPV = new G4PVPlacement(0,
+               					   G4ThreeVector(0., 0., 0),
+               					   bpmInLV,
+               					   "bpmInPV",
+               					   bpmLV,
+               					   false,
+               					   0,
+               					   fCheckOverlaps);
+
+               //**********************************************
+               // BPM Flange in, out
+
+                   G4double bpmFL1in=0.*mm;
+                   G4double bpmFL2in=0.5*63*mm;
+                   G4double bpmFLhin=0.5*dbpmIn;
+
+                   G4RotationMatrix *rm03b1 = new G4RotationMatrix();
+                   rm03b1->rotateX(0*deg);
+                   rm03b1->rotateY(0.*deg);
+                   rm03b1->rotateZ(0);
+
+                G4double zFLin=bpm_z-0.5*dbpmIn;
+                //cout<<zchin<<endl;
+
+                G4VSolid * bpmFLin = new G4Tubs("BPM_flin", bpmFL1in, bpmFL2in, bpmFLhin, 0.,  twopi);
+                G4LogicalVolume* bpmFLinLV =new G4LogicalVolume(bpmFLin,vaccum, "bpmFLinLV");
+                G4PVPlacement* bpmFLinPV = new G4PVPlacement(rm03b1,G4ThreeVector(0., 0, zFLin), bpmFLinLV,"bpmFLinPV", bpmLV, false, 0,fCheckOverlaps);
+
+               G4double bpmFL1out=0*mm;
+               G4double bpmFL2out=0.5*63*mm;
+
+                G4double zFLout=-bpm_z+0.5*dbpmIn;
+
+
+                G4VSolid * bpmFLout = new G4Tubs("BPM_flout", bpmFL1out, bpmFL2out, bpmFLhin, 0.,  twopi);
+                G4LogicalVolume* bpmFLoutLV =new G4LogicalVolume(bpmFLout,vaccum, "bpmFLoutLV");
+                G4PVPlacement* bpmFLoutPV = new G4PVPlacement(rm03b1,G4ThreeVector(0., 0, zFLout), bpmFLoutLV,"bpmFLoutPV", bpmLV, false, 0,fCheckOverlaps);
+
+               //G4double zFLin=(chR2-0.5*d1);
+               //G4PVPlacement* tube_physflin = new G4PVPlacement(rm03b,G4ThreeVector(0., zFLin,0//.), tube_logflin,"chtubePflin",tube_log, false, 2,fCheckOverlaps);
+
+                //*********************************
+                // BPM - ring2
+
+
+                G4double bpm_z2=zsbl-(0.5*sblh+bpmh_ring+2.*bpm_z+0.5*bpmh_ring);
+
+                 G4VSolid * bpm2 = new G4Tubs("bpm2", bpmR1_ring, bpmR2_ring, 0.5*bpmh_ring, 0.,  360.*deg);
+                 G4LogicalVolume* bpm2_log =new G4LogicalVolume(bpm2,steel, "bpm2LV");
+                 G4PVPlacement* bpm2_phys = new G4PVPlacement(0, G4ThreeVector(0., 0., bpm_z2),bpm2_log,"bpm2PV", worldLV, false, 0,fCheckOverlaps);
+
+                //*********************************
+                // BEAMLINE - long
+                // lbl-long beam line
+
+                //G4double lblR=50.*mm;
+                G4double lblR=63.*mm;
+                G4double lblR1=0.5*(lblR-dbl);
+                G4double lblR2=0.5*lblR;
+                G4double lblh=0.5*1617.5*mm;
+
+
+                G4double zlbl=bpm_z2-(0.5*bpmh_ring+lblh);
+                //cout<<zchin<<endl;
+
+                G4VSolid * tubeLbl = new G4Tubs("tube_lbl", lblR1, lblR2, lblh, 0.,  twopi);
+                G4LogicalVolume* tubeLbl_log =new G4LogicalVolume(tubeLbl, steel, "tubeLbl_log");
+                G4PVPlacement* tubeLbl_phys = new G4PVPlacement(0,G4ThreeVector(0., 0.,zlbl), tubeLbl_log,"tubeLbl_phys",worldLV, false, 0,fCheckOverlaps);
+
+                //vaccum inside
+                G4VSolid * tubeLbl1 = new G4Tubs("tube_lbl1", 0., lblR1, lblh, 0.,  twopi);
+                G4LogicalVolume* tubeLbl1_log =new G4LogicalVolume(tubeLbl1, vaccum, "tubeLblvacc_log");
+                G4PVPlacement* tubeLbl1_phys = new G4PVPlacement(0,G4ThreeVector(0., 0.,zlbl), tubeLbl1_log,"tubeLbl1_phys",worldLV, false, 0,fCheckOverlaps);
+
+
+               //******************************************
+                // beam
+                //******************************************
+
+
+
+                 //G4double zTifl=zlbl-lblh-0.5*fh_z;
+                 G4double zb=-2710*mm;
+
+
+                 //cout<<"--------!!!!!-2683.15 "<<zb<<endl;
+                 G4VSolid* beam_volS0 = new G4Tubs("targ_vol0",0.,fRmax,0.5*fh_z,0.,twopi);
+                 G4LogicalVolume* beam_volLV0 = new G4LogicalVolume(beam_volS0,vaccum,"beam_volLV0");
+
+
+                 G4PVPlacement *beam_volPV0 = new G4PVPlacement(0,
+               						  G4ThreeVector(0.,0.,zb),
+               						  beam_volLV0,
+               						  "beam_volPV0",
+               						  worldLV,
+               						  false,
+               						  0,
+               						  fCheckOverlaps);
 
 
   //
