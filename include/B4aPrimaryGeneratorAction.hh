@@ -129,29 +129,17 @@ private:
   B4aDetectorConstruction* myDetector;
   HistoManager *fHistoManager;
 
-  void RandomInit(G4int =2);			//generators initialization
-  G4double RandomGauss(G4double, G4double =0, G4double =1);	// gauss
-  G4double RandomFlat (G4double, G4double =0, G4double =1);	// flat
+
   void Pos(void);				//generate vertex position
 
-    G4double* elastic(G4double*);
-    G4double* ugelast(G4double*);
-    G4double* upunif(G4double*);
-    G4ThreeVector flatGen();
-    void ugelast_read(void);
-    void break_read(void);
 
-    G4double gelkin(G4double,G4double*,G4double*);  // elastic kinematics
+    G4ThreeVector flatGen();
+
 
     G4double momentum[9];
 
     G4double p_mass, Ti48_mass, he3_mass, d_mass, he4_mass, t_mass;
 
-
-    //CLHEP::RandFlat* GaussDist[2];
-    CLHEP::RandGauss* GaussDist[2];
-
-    CLHEP::RandFlat* FlatDist[9];
 
 
 

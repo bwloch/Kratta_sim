@@ -364,14 +364,14 @@ G4VPhysicalVolume* B4aDetectorConstruction::DefineVolumes()
                  //******************************************
                  // Chamber with vaccum inside
 
-                   G4RotationMatrix *rm03a = new G4RotationMatrix();
-                   rm03a->rotateX(90*deg);
-                   rm03a->rotateY(0.*deg);
-                   rm03a->rotateZ(0);
-
-                   G4VSolid * chtube1 = new G4Tubs("chtube1", 0.,chR1, chh, 0.,  360.*deg);
-                   G4LogicalVolume* tube_log1 =new G4LogicalVolume(chtube1,vaccum, "chtube1L");
-                   G4PVPlacement* tube_phys1 = new G4PVPlacement(rm03a,G4ThreeVector(0., 0., 0.),tube_log1,"chtube1P", worldLV, false, 0,fCheckOverlaps);
+                   // G4RotationMatrix *rm03a = new G4RotationMatrix();
+                   // rm03a->rotateX(90*deg);
+                   // rm03a->rotateY(0.*deg);
+                   // rm03a->rotateZ(0);
+                   //
+                   // G4VSolid * chtube1 = new G4Tubs("chtube1", 0.,chR1, chh, 0.,  360.*deg);
+                   // G4LogicalVolume* tube_log1 =new G4LogicalVolume(chtube1,vaccum, "chtube1L");
+                   // G4PVPlacement* tube_phys1 = new G4PVPlacement(rm03a,G4ThreeVector(0., 0., 0.),tube_log1,"chtube1P", worldLV, false, 0,fCheckOverlaps);
 
 
                //**********************************************
