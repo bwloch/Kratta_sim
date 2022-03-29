@@ -19,8 +19,8 @@
 #include "B4aHistoManager.hh"
 #include "TF1.h"
 #include "TGraph.h"
-// #include "G4AutoLock.hh"
-// namespace { G4Mutex PrimMutex = G4MUTEX_INITIALIZER;}
+ #include "G4AutoLock.hh"
+ namespace { G4Mutex PrimMutex = G4MUTEX_INITIALIZER;}
 
 #ifndef min
 #define min(x,y) ((x)<(y) ? (x):(y))
@@ -97,8 +97,9 @@ B4aPrimaryGeneratorAction::B4aPrimaryGeneratorAction(B4aDetectorConstruction* my
    //G4GenericIon::GenericIon() ;
      Ti48_mass = 44.6523;//GeV
 
+     G4AutoLock lock(&PrimMutex);
 
-gr = new TGraph("../data/pd_200.dat","%lg %*lg %lg %*lg %*lg %*lg %*lg %*lg %*lg %*lg %*lg");
+gr = new TGraph("/home/bwloch/GEANT4/Symulacje/Kratta_sim/Kratta/data/pd_200.dat","%lg %*lg %lg %*lg %*lg %*lg %*lg %*lg %*lg %*lg %*lg");
 
   G4cout<<"--------------->NUMBER OF POINTS: "<< gr->GetN()<<endl;
 }
@@ -155,8 +156,10 @@ G4ThreeVector dir = flatGen();
   // dir.setPhi(phi*deg);
   // dir.setTheta(theta*deg);
   // dir.setMag(1.0);
+  G4AutoLock lock(&PrimMutex);
 
   bt=gr->Eval(dir.theta())/1000;
+
   G4cout<<" theta="<<dir.theta()*180/M_PI<<" bt="<<bt<<G4endl;
 //bt=0.1;
 
