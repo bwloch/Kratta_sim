@@ -158,7 +158,7 @@ G4ThreeVector dir = flatGen();
   // dir.setMag(1.0);
   G4AutoLock lock(&PrimMutex);
 
-  bt=gr->Eval(dir.theta())/1000;
+  bt=gr->Eval(abs(dir.theta()))/1000;
 
   G4cout<<" theta="<<dir.theta()*180/M_PI<<" bt="<<bt<<G4endl;
 //bt=0.1;
@@ -251,18 +251,18 @@ G4ThreeVector B4aPrimaryGeneratorAction::flatGen(){
   //   theta = -33*G4UniformRand()-36;
   // }
 
-  theta = 58*G4UniformRand()+11;
-  phi = 25*G4UniformRand()-12.5;
+  // theta = 58*G4UniformRand()+11;
+  // phi = 25*G4UniformRand()-12.5;
 
 
 	//
-	// if(G4UniformRand()-0.5>0){
-	// 	theta = 56*G4UniformRand()+12;
-	// }
-	// else{
-	// 	theta = -56*G4UniformRand()-12;
-	// }
-	// phi = 14*G4UniformRand()-7;
+	if(G4UniformRand()-0.5>0){
+		theta = 56*G4UniformRand()+12;
+	}
+	else{
+		theta = -56*G4UniformRand()-12;
+	}
+	phi = 25*G4UniformRand()-12.5;
 
 //  G4cout<<"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! thcos="<<thcos<<" phi="<<phi<<"\n";
   G4ThreeVector vec(1.0, 1.0, 1.0);

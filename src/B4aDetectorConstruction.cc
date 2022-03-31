@@ -283,7 +283,9 @@ G4VPhysicalVolume* B4aDetectorConstruction::DefineVolumes()
 
   // Get materials
   //******************************************
-  G4Material* defaultMaterial = G4Material::GetMaterial("G4_AIR");
+  //G4Material* defaultMaterial = G4Material::GetMaterial("G4_AIR");
+  G4Material* defaultMaterial = G4Material::GetMaterial("G4_Galactic");
+
   G4Material* csi_mat = G4Material::GetMaterial("CsI_Tl");
   G4Material* pd_mat = G4Material::GetMaterial("G4_Si");
   G4Material* tgwin_mat = G4Material::GetMaterial("G4_MYLAR");
@@ -692,119 +694,131 @@ G4VPhysicalVolume* B4aDetectorConstruction::DefineVolumes()
 
   G4double theta[noDet],phi[noDet];
   // G4double lat[noDet],lon[noDet];
+for(int i=0;i<noDet;i++){
+theta[i]=0;
+phi[i]=0;
+}
 
-  // theta[0]=15.*deg;   phi[0]=4.*deg;
-  // theta[1]=38.*deg;   phi[1]=4.*deg;
-  // theta[2]=43.*deg;   phi[2]=4.*deg;
-  // theta[3]=48.*deg;   phi[3]=4.*deg;
-  // theta[4]=53.*deg;   phi[4]=4.*deg;
-  // theta[5]=58.*deg;   phi[5]=4.*deg;
-  // theta[6]=63.*deg;   phi[6]=4.*deg;
+  // theta[0]=15.*deg;   phi[0]=0.*deg;
+  // theta[1]=37.*deg;   phi[1]=0.*deg;
+  // theta[2]=43.*deg;   phi[2]=0.*deg;
+  // theta[3]=49.*deg;   phi[3]=0.*deg;
+  // theta[4]=55.*deg;   phi[4]=0.*deg;
+  // theta[5]=61.*deg;   phi[5]=0.*deg;
   //
-  // theta[7]=15.*deg;   phi[7]=-4.*deg;
-  // theta[8]=38.*deg;   phi[8]=-4.*deg;
-  // theta[9]=43.*deg;   phi[9]=-4.*deg;
-  // theta[10]=48.*deg;  phi[10]=-4.*deg;
-  // theta[11]=53.*deg;  phi[11]=-4.*deg;
-  // theta[12]=58.*deg;  phi[12]=-4.*deg;
-  // theta[13]=63.*deg;  phi[13]=-4.*deg;
+  // theta[6]=37.*deg;   phi[6]=6.*deg;
+  // theta[7]=43.*deg;   phi[7]=6.*deg;
+  // theta[8]=49.*deg;   phi[8]=6.*deg;
+  // theta[9]=55.*deg;   phi[9]=6.*deg;
+  // theta[10]=61.*deg;   phi[10]=6.*deg;
   //
-  // theta[14]=-15.*deg;   phi[14]=4.*deg;
-  // theta[15]=-38.*deg;   phi[15]=4.*deg;
-  // theta[16]=-43.*deg;   phi[16]=4.*deg;
-  // theta[17]=-48.*deg;   phi[17]=4.*deg;
-  // theta[18]=-53.*deg;   phi[18]=4.*deg;
-  // theta[19]=-58.*deg;   phi[19]=4.*deg;
-  // theta[20]=-63.*deg;   phi[20]=4.*deg;
+  // theta[11]=37.*deg;   phi[11]=-6.*deg;
+  // theta[12]=43.*deg;   phi[12]=-6.*deg;
+  // theta[13]=49.*deg;  phi[13]=-6.*deg;
+  // theta[14]=55.*deg;  phi[14]=-6.*deg;
+  // theta[15]=61.*deg;  phi[15]=-6.*deg;
   //
-  // theta[21]=-15.*deg;   phi[21]=-4.*deg;
-  // theta[22]=-38.*deg;   phi[22]=-4.*deg;
-  // theta[23]=-43.*deg;   phi[23]=-4.*deg;
-  // theta[24]=-48.*deg;  phi[24]=-4.*deg;
-  // theta[25]=-53.*deg;  phi[25]=-4.*deg;
-  // theta[26]=-58.*deg;  phi[26]=-4.*deg;
-  // theta[27]=-63.*deg;  phi[27]=-4.*deg;
+  // theta[16]=-15.*deg;   phi[16]=0.*deg;
+  // theta[17]=-37.*deg;   phi[17]=0.*deg;
+  // theta[18]=-43.*deg;   phi[18]=0.*deg;
+  // theta[19]=-49.*deg;   phi[19]=0.*deg;
+  // theta[20]=-55.*deg;   phi[20]=0.*deg;
+  // theta[21]=-61.*deg;   phi[21]=0.*deg;
+  //
+  // theta[22]=-37.*deg;   phi[22]=6.*deg;
+  // theta[23]=-43.*deg;   phi[23]=6.*deg;
+  // theta[24]=-49.*deg;   phi[24]=6.*deg;
+  // theta[25]=-55.*deg;   phi[25]=6.*deg;
+  // theta[26]=-61.*deg;   phi[26]=6.*deg;
+  //
+  // theta[27]=-37.*deg;   phi[27]=-6.*deg;
+  // theta[28]=-43.*deg;   phi[28]=-6.*deg;
+  // theta[29]=-49.*deg;  phi[29]=-6.*deg;
+  // theta[30]=-55.*deg;  phi[30]=-6.*deg;
+  // theta[31]=-61.*deg;  phi[31]=-6.*deg;
 
-
-  theta[0]=15.*deg;   phi[0]=0.*deg;
-  theta[1]=37.*deg;   phi[1]=0.*deg;
-  theta[2]=43.*deg;   phi[2]=0.*deg;
-  theta[3]=49.*deg;   phi[3]=0.*deg;
-  theta[4]=55.*deg;   phi[4]=0.*deg;
-  theta[5]=61.*deg;   phi[5]=0.*deg;
-
-  theta[6]=37.*deg;   phi[6]=6.*deg;
-  theta[7]=43.*deg;   phi[7]=6.*deg;
-  theta[8]=49.*deg;   phi[8]=6.*deg;
-  theta[9]=55.*deg;   phi[9]=6.*deg;
-  theta[10]=61.*deg;   phi[10]=6.*deg;
-
-  theta[11]=37.*deg;   phi[11]=-6.*deg;
-  theta[12]=43.*deg;   phi[12]=-6.*deg;
-  theta[13]=49.*deg;  phi[13]=-6.*deg;
-  theta[14]=55.*deg;  phi[14]=-6.*deg;
-  theta[15]=61.*deg;  phi[15]=-6.*deg;
-
-  theta[16]=-15.*deg;   phi[16]=0.*deg;
-  theta[17]=-37.*deg;   phi[17]=0.*deg;
-  theta[18]=-43.*deg;   phi[18]=0.*deg;
-  theta[19]=-49.*deg;   phi[19]=0.*deg;
-  theta[20]=-55.*deg;   phi[20]=0.*deg;
-  theta[21]=-61.*deg;   phi[21]=0.*deg;
-
-  theta[22]=-37.*deg;   phi[22]=6.*deg;
-  theta[23]=-43.*deg;   phi[23]=6.*deg;
-  theta[24]=-49.*deg;   phi[24]=6.*deg;
-  theta[25]=-55.*deg;   phi[25]=6.*deg;
-  theta[26]=-61.*deg;   phi[26]=6.*deg;
-
-  theta[27]=-37.*deg;   phi[27]=-6.*deg;
-  theta[28]=-43.*deg;   phi[28]=-6.*deg;
-  theta[29]=-49.*deg;  phi[29]=-6.*deg;
-  theta[30]=-55.*deg;  phi[30]=-6.*deg;
-  theta[31]=-61.*deg;  phi[31]=-6.*deg;
+//NEW Ones
 
 
 
+  theta[0]=61.*deg;   phi[0]=6.*deg;
+  theta[1]=55.*deg;   phi[1]=6.*deg;
+  theta[2]=49.*deg;   phi[2]=6.*deg;
+  theta[3]=43.*deg;   phi[3]=6.*deg;
+  theta[4]=37.*deg;   phi[4]=6.*deg;
 
-  // for(int i=0;i<28;i++){
-  // 	theta[i]+=63.*deg;
-  // }
+  theta[5]=37.*deg;   phi[5]=6.*deg;
+  theta[6]=43.*deg;   phi[6]=6.*deg;
+  theta[7]=49.*deg;   phi[7]=6.*deg;
+  theta[8]=55.*deg;   phi[8]=6.*deg;
+  theta[9]=61.*deg;   phi[9]=6.*deg;
+
+  theta[10]=61.*deg;   phi[10]=0.*deg;
+  theta[11]=55.*deg;   phi[11]=0.*deg;
+  theta[12]=49.*deg;   phi[12]=0.*deg;
+  theta[13]=43.*deg;   phi[13]=0.*deg;
+  theta[14]=37.*deg;   phi[14]=0.*deg;
+
+  theta[15]=37.*deg;   phi[15]=0.*deg;
+  theta[16]=43.*deg;   phi[16]=0.*deg;
+  theta[17]=49.*deg;   phi[17]=0.*deg;
+  theta[18]=55.*deg;   phi[18]=0.*deg;
+  theta[19]=61.*deg;   phi[19]=0.*deg;
+
+  theta[20]=61.*deg;   phi[20]=-6.*deg;
+  theta[21]=55.*deg;   phi[21]=-6.*deg;
+  theta[22]=49.*deg;   phi[22]=-6.*deg;
+  theta[23]=43.*deg;   phi[23]=-6.*deg;
+  theta[24]=37.*deg;   phi[24]=-6.*deg;
+
+  theta[25]=37.*deg;   phi[25]=-6.*deg;
+  theta[26]=43.*deg;   phi[26]=-6.*deg;
+  theta[27]=49.*deg;   phi[27]=-6.*deg;
+  theta[28]=55.*deg;   phi[28]=-6.*deg;
+  theta[29]=61.*deg;   phi[29]=-6.*deg;
+
+  theta[30]=15.*deg;   phi[30]=0.*deg;
+  theta[31]=15.*deg;   phi[31]=0.*deg;
 
 
-
-
-  // lat[0]=2.43*deg;	lon[0]=-1.28*deg;
-  // lat[1]=0.30*deg;	lon[1]=-1.28*deg;
-  // lat[2]=0.98*deg;	lon[2]=-1.28*deg;
-  // lat[3]=2.27*deg;	lon[3]=-1.28*deg;
-  // lat[4]=2.73*deg;	lon[4]=-1.28*deg;
-  // lat[5]=1.45*deg;	lon[5]=-1.28*deg;
-  // lat[6]=0.17*deg;	lon[6]=-1.28*deg;
-
-  // lat[7]=2.43*deg;	lon[7]=1.28*deg;
-  // lat[8]=0.30*deg;	lon[8]=1.28*deg;
-  // lat[9]=0.98*deg;	lon[9]=1.28*deg;
-  // lat[10]=2.27*deg;	lon[10]=1.28*deg;
-  // lat[11]=2.73*deg;	lon[11]=1.28*deg;
-  // lat[12]=1.45*deg;	lon[12]=1.28*deg;
-  // lat[13]=0.17*deg;	lon[13]=1.28*deg;
-
-  // lat[14]=2.43*deg;	lon[14]=-1.28*deg;
-  // lat[15]=0.30*deg;	lon[15]=-1.28*deg;
-  // lat[16]=0.98*deg;	lon[16]=-1.28*deg;
-  // lat[17]=2.27*deg;	lon[17]=-1.28*deg;
-  // lat[18]=2.73*deg;	lon[18]=-1.28*deg;
-  // lat[19]=1.45*deg;	lon[19]=-1.28*deg;
-  // lat[20]=0.17*deg;	lon[20]=-1.28*deg;
-
-  // lat[21]=2.43*deg;	lon[21]=1.28*deg;
-  // lat[22]=0.30*deg;	lon[22]=1.28*deg;
-  // lat[23]=0.98*deg;	lon[23]=1.28*deg;
-  // lat[24]=2.27*deg;	lon[24]=1.28*deg;
-  // lat[25]=2.73*deg;	lon[25]=1.28*deg;
-  // lat[26]=1.45*deg;	lon[26]=1.28*deg;
-  // lat[27]=0.17*deg;	lon[27]=1.28*deg;
+//GOOD ONES
+  // theta[0]=15.*deg;   phi[0]=0.*deg;
+  // theta[1]=37.*deg;   phi[1]=0.*deg;
+  // theta[2]=43.*deg;   phi[2]=0.*deg;
+  // theta[3]=49.*deg;   phi[3]=0.*deg;
+  // theta[4]=55.*deg;   phi[4]=0.*deg;
+  // theta[5]=61.*deg;   phi[5]=0.*deg;
+  //
+  // theta[6]=37.*deg;   phi[6]=6.*deg;
+  // theta[7]=43.*deg;   phi[7]=6.*deg;
+  // theta[8]=49.*deg;   phi[8]=6.*deg;
+  // theta[9]=55.*deg;   phi[9]=6.*deg;
+  // theta[10]=61.*deg;   phi[10]=6.*deg;
+  //
+  // theta[11]=37.*deg;   phi[11]=-6.*deg;
+  // theta[12]=43.*deg;   phi[12]=-6.*deg;
+  // theta[13]=49.*deg;  phi[13]=-6.*deg;
+  // theta[14]=55.*deg;  phi[14]=-6.*deg;
+  // theta[15]=61.*deg;  phi[15]=-6.*deg;
+  //
+  // theta[16]=-15.*deg;   phi[16]=0.*deg;
+  // theta[17]=-37.*deg;   phi[17]=0.*deg;
+  // theta[18]=-43.*deg;   phi[18]=0.*deg;
+  // theta[19]=-49.*deg;   phi[19]=0.*deg;
+  // theta[20]=-55.*deg;   phi[20]=0.*deg;
+  // theta[21]=-61.*deg;   phi[21]=0.*deg;
+  //
+  // theta[22]=-37.*deg;   phi[22]=6.*deg;
+  // theta[23]=-43.*deg;   phi[23]=6.*deg;
+  // theta[24]=-49.*deg;   phi[24]=6.*deg;
+  // theta[25]=-55.*deg;   phi[25]=6.*deg;
+  // theta[26]=-61.*deg;   phi[26]=6.*deg;
+  //
+  // theta[27]=-37.*deg;   phi[27]=-6.*deg;
+  // theta[28]=-43.*deg;   phi[28]=-6.*deg;
+  // theta[29]=-49.*deg;  phi[29]=-6.*deg;
+  // theta[30]=-55.*deg;  phi[30]=-6.*deg;
+  // theta[31]=-61.*deg;  phi[31]=-6.*deg;
 
 
 
@@ -822,62 +836,164 @@ G4VPhysicalVolume* B4aDetectorConstruction::DefineVolumes()
     auto dist2 = dist - 100*mm;
 
 
-   if(i<16){
-   	rm1.rotateX(-phi[i]);
-   	rm1.rotateY(theta[i]);
-   	rm1.rotateZ(0.*deg);
-   	rm2.rotateX(-phi[i]);
-   	rm2.rotateY(theta[i]);
-   	rm2.rotateZ(0.*deg);
+   // if(i<16){
+   // 	rm1.rotateX(-phi[i]);
+   // 	rm1.rotateY(theta[i]);
+   // 	rm1.rotateZ(0.*deg);
+   // 	rm2.rotateX(-phi[i]);
+   // 	rm2.rotateY(theta[i]);
+   // 	rm2.rotateZ(0.*deg);
+   //
+   // }
+   // else{
+   // 	rm1.rotateX(-phi[i]);
+   // 	rm1.rotateY(theta[i]);
+   // 	rm1.rotateZ(0.*deg);
+   // 	rm2.rotateX(-phi[i]);
+   // 	rm2.rotateY(theta[i]);
+   // 	rm2.rotateZ(0.*deg);
+   // }
 
-   }
-   else{
-   	rm1.rotateX(-phi[i]);
-   	rm1.rotateY(theta[i]);
-   	rm1.rotateZ(0.*deg);
-   	rm2.rotateX(-phi[i]);
-   	rm2.rotateY(theta[i]);
-   	rm2.rotateZ(0.*deg);
-   }
 
 
-    if(i<6){
+    // if(i<6){
+    //   fy=0.*mm;
+    //   // fy=29.*mm;
+    //   mv2.setY(fy);
+    //
+    // }
+    // if(i>5&&i<11){
+    //   fy=29.*mm*1.7;
+    //   mv2.setY(fy-frameWidth-housThick);
+    // }
+    // if(i>10&&i<17){
+    //   fy=-29.*mm*1.7;
+    //   mv2.setY(fy+frameWidth+housThick);
+    //
+    // }
+    // if(i>15&&i<22)
+    // {
+    // fy=0.*mm;
+    // // fy=29.*mm;
+    // mv2.setY(fy);
+    // }
+    // if(i>21 && i<27){
+    // fy=29.*mm*1.7;
+    //   mv2.setY(fy-frameWidth-housThick);
+    // }
+    //
+    // if(i>26){
+    //   fy=-29.*mm*1.7;
+    //   mv2.setY(fy+frameWidth+housThick);
+    // }
+    //
+    // if(i%6){
+    //   fy=0.*mm;
+    //   // fy=29.*mm;
+    //   mv2.setY(fy);
+    //
+    // }
+    // if(i>5&&i<11){
+    //   fy=29.*mm*1.7;
+    //   mv2.setY(fy-frameWidth-housThick);
+    // }
+    // if(i>10&&i<17){
+    //   fy=-29.*mm*1.7;
+    //   mv2.setY(fy+frameWidth+housThick);
+    //
+    // }
+    // if(i>15&&i<22)
+    // {
+    // fy=0.*mm;
+    // // fy=29.*mm;
+    // mv2.setY(fy);
+    // }
+    // if(i>21 && i<27){
+    // fy=29.*mm*1.7;
+    //   mv2.setY(fy-frameWidth-housThick);
+    // }
+    //
+    // if(i>26){
+    //   fy=-29.*mm*1.7;
+    //   mv2.setY(fy+frameWidth+housThick);
+    // }
+
+
+
+    if(i%10<5){
+      if(i==31){
+        fx=dist*cos(phi[i])*sin(-theta[i]);
+        fz=dist*cos(-theta[i]);
+        rm1.rotateX(-phi[i]);
+        rm1.rotateY(-theta[i]);
+        rm1.rotateZ(0.*deg);
+        rm2.rotateX(-phi[i]);
+        rm2.rotateY(-theta[i]);
+        rm2.rotateZ(0.*deg);
+        mv2.setZ(dist2*cos(-theta[i]));
+        mv2.setX(dist2*cos(phi[i])*sin(-theta[i]));
+
+      }
+      else{
+      fx=dist*cos(phi[i])*sin(theta[i]);
+      fz=dist*cos(theta[i]);
+    	rm1.rotateX(-phi[i]);
+    	rm1.rotateY(theta[i]);
+    	rm1.rotateZ(0.*deg);
+    	rm2.rotateX(-phi[i]);
+    	rm2.rotateY(theta[i]);
+    	rm2.rotateZ(0.*deg);
+      mv2.setZ(dist2*cos(theta[i]));
+      mv2.setX(dist2*cos(phi[i])*sin(theta[i]));
+    }
+
+
+    }
+    else{
+      fx=dist*cos(phi[i])*sin(-theta[i]);
+      fz=dist*cos(-theta[i]);
+    	rm1.rotateX(-phi[i]);
+    	rm1.rotateY(-theta[i]);
+    	rm1.rotateZ(0.*deg);
+    	rm2.rotateX(-phi[i]);
+    	rm2.rotateY(-theta[i]);
+    	rm2.rotateZ(0.*deg);
+      mv2.setZ(dist2*cos(-theta[i]));
+      mv2.setX(dist2*cos(phi[i])*sin(-theta[i]));
+    }
+
+
+
+    if(i/10==1){
       fy=0.*mm;
       // fy=29.*mm;
       mv2.setY(fy);
 
     }
-    if(i>5&&i<11){
+    if(i/10==0){
       fy=29.*mm*1.7;
-      mv2.setY(fy-frameWidth-housThick);
+      mv2.setY(fy-frameWidth-housThick-4);
     }
-    if(i>10&&i<17){
+    if(i/10==2){
       fy=-29.*mm*1.7;
-      mv2.setY(fy+frameWidth+housThick);
+      mv2.setY(fy+frameWidth+housThick+4);
+    }
+    if(i/10==3){
+      fy=0.*mm;
+      // fy=29.*mm;
+      mv2.setY(fy);
 
-    }
-    if(i>15&&i<22)
-    {
-    fy=0.*mm;
-    // fy=29.*mm;
-    mv2.setY(fy);
-    }
-    if(i>21 && i<27){
-    fy=29.*mm*1.7;
-      mv2.setY(fy-frameWidth-housThick);
-    }
-
-    if(i>26){
-      fy=-29.*mm*1.7;
-      mv2.setY(fy+frameWidth+housThick);
     }
 
 
     mv1.setX(fx);
     mv1.setY(fy);
     mv1.setZ(fz);
-    mv2.setX(dist2*cos(phi[i])*sin(theta[i]));
-    mv2.setZ(dist2*cos(theta[i]));
+    // mv1.setX(fx);
+    // mv1.setY(fy);
+    // mv1.setZ(fz);
+  //  mv2.setX(dist2*cos(phi[i])*sin(theta[i]));
+  //  mv2.setZ(dist2*cos(theta[i]));
 
     trv=G4Transform3D(rm1,mv1);
     trv2=G4Transform3D(rm2,mv2);
